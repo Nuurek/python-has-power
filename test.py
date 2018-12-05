@@ -44,7 +44,10 @@ class PHPAdvancedTestCase(unittest.TestCase):
 
     def test_diesel_car_is_class(self):
         """ DieselCar is a class type """
-        self.assertTrue(inspect.isclass(self.diesel_car_class))
+        self.assertTrue(
+            inspect.isclass(self.diesel_car_class),
+            msg='DieselCar is not a class'
+        )
 
     def test_gas_car_inheritance(self):
         """ GasCar should inherit from php.BaseCar"""
@@ -172,7 +175,7 @@ class PHPAdvancedTestCase(unittest.TestCase):
         )
 
     def test_car_accident_inheritance(self):
-        """ CarAccident should inherit from php.BaseCar"""
+        """ CarAccident should inherit from BaseException"""
         self.assertTrue(
             issubclass(self.car_accident_class, BaseException),
             msg='CarAccident does not inherit from BaseException'
@@ -181,8 +184,8 @@ class PHPAdvancedTestCase(unittest.TestCase):
     def test_car_addition_raises_gas_gas(self):
         """ GasCar + GasCar should raise CarAccident """
         with self.assertRaises(
-                self.car_accident_class,
-                msg='GasCar + GasCar did not raise CarAccident'
+            self.car_accident_class,
+            msg='GasCar + GasCar did not raise CarAccident'
         ) as exc:
             instance1 = self.gas_car_class()
             instance2 = self.gas_car_class()
@@ -194,8 +197,8 @@ class PHPAdvancedTestCase(unittest.TestCase):
     def test_car_addition_raises_diesel_diesel(self):
         """ DieselCar + DieselCar should raise CarAccident """
         with self.assertRaises(
-                self.car_accident_class,
-                msg='DieselCar + DieselCar did not raise CarAccident'
+            self.car_accident_class,
+            msg='DieselCar + DieselCar did not raise CarAccident'
         ) as exc:
             instance1 = self.diesel_car_class()
             instance2 = self.diesel_car_class()
@@ -207,8 +210,8 @@ class PHPAdvancedTestCase(unittest.TestCase):
     def test_car_addition_raises_gas_diesel(self):
         """ GasCar + DieselCar should raise CarAccident """
         with self.assertRaises(
-                self.car_accident_class,
-                msg='GasCar + DieselCar did not raise CarAccident'
+            self.car_accident_class,
+            msg='GasCar + DieselCar did not raise CarAccident'
         ) as exc:
             instance1 = self.gas_car_class()
             instance2 = self.diesel_car_class()
@@ -220,8 +223,8 @@ class PHPAdvancedTestCase(unittest.TestCase):
     def test_car_addition_raises_diesel_gas(self):
         """ DieselCar + GasCar should raise CarAccident """
         with self.assertRaises(
-                self.car_accident_class,
-                msg='DieselCar + GasCar did not raise CarAccident'
+            self.car_accident_class,
+            msg='DieselCar + GasCar did not raise CarAccident'
         ) as exc:
             instance1 = self.diesel_car_class()
             instance2 = self.gas_car_class()
@@ -229,6 +232,7 @@ class PHPAdvancedTestCase(unittest.TestCase):
             self.assertEqual(
                 exc.msg, 'Crash!', msg='Exception message was not \'Crash!\''
             )
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
